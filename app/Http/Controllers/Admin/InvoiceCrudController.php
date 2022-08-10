@@ -48,8 +48,8 @@ class InvoiceCrudController extends CrudController
             'attribute'=>"FullName",
         ]);
         CRUD::column('done')->label("Hình thức")->type("select_from_array")->options(["Thanh toán một phần","Thanh toán xong"]);
-        CRUD::column('price')->label("Số tiền thanh toán")->type("number");
-        CRUD::column('created_at')->label("Thời gian thanh toán");
+        CRUD::column('price')->label("Số tiền thanh toán")->type("number")->suffix(" đ");
+        CRUD::column('created_at')->label("Thời gian tạo thanh toán")->type("datetime");
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:

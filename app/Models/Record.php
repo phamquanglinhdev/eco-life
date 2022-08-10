@@ -22,7 +22,6 @@ class Record extends Model
     // protected $fillable = [];
     // protected $hidden = [];
     // protected $dates = [];
-
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
@@ -34,8 +33,9 @@ class Record extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function Task(){
-        return $this->belongsTo(Task::class,"task_id","id");
+    public function Task()
+    {
+        return $this->belongsTo(Task::class, "task_id", "id");
     }
     /*
     |--------------------------------------------------------------------------

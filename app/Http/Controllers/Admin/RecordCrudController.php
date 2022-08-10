@@ -51,7 +51,7 @@ class RecordCrudController extends CrudController
         CRUD::column('date')->type("date")->label("Ngày");
         CRUD::column('start')->type("time")->label("Thời gian bắt đầu");
         CRUD::column('end')->type("time")->label("Thời gian kết thúc");
-        CRUD::column('price')->label("Tiền công");
+        CRUD::column('price')->label("Tiền công")->type("number")->suffix(" đ");
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');

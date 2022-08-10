@@ -21,7 +21,7 @@ class Task extends Model
     protected $guarded = ['id'];
     // protected $fillable = [];
     // protected $hidden = [];
-    // protected $dates = [];
+
 
     /*
     |--------------------------------------------------------------------------
@@ -37,7 +37,21 @@ class Task extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-
+    public function Records(){
+        return $this->hasMany(Record::class,"task_id","id");
+    }
+    public function Total(){
+        return $this->Records()->sum("price");
+    }
+    public function Invoices(){
+        return $this->hasMany(Invoice::class,"task_id","id");
+    }
+    public function Invoiced(){
+        return $this->Invoices()->sum("price");
+    }
+    public function Count(){
+        return $this->Records()->count();
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

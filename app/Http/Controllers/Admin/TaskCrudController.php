@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\TaskRequest;
+use App\Models\Task;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\CrudPanel\Traits\Read;
@@ -30,8 +31,8 @@ class TaskCrudController extends CrudController
         CRUD::setModel(\App\Models\Task::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/task');
         CRUD::setEntityNameStrings('Công', 'Bảng công');
-        $this->crud->enableDetailsRow();
-        $this->crud->allowAccess(['details_row']);
+//        $this->crud->enableDetailsRow();
+//        $this->crud->allowAccess(['details_row']);
     }
 
     /**
@@ -46,7 +47,7 @@ class TaskCrudController extends CrudController
         CRUD::column('name')->label("Tên");
         CRUD::column('phone')->label("Số điện thoại");
         CRUD::column('type')->label("Loại công")->type("select_from_array")->options(["Công khoán", "Công ngày"]);
-        CRUD::column('start')->label("Ngày bắt đầu");
+        CRUD::column('start')->label("Ngày bắt đầu")->type("date");
 //        CRUD::column('end')->label("Ngày bắt đầu");
 //        CRUD::column('price');
         CRUD::column('status')->label("Trạng thái")->type("select_from_array")->options(["Đang mở", "Đã đóng"]);
@@ -94,8 +95,8 @@ class TaskCrudController extends CrudController
     {
         $this->setupCreateOperation();
     }
-    protected function showDetailsRow($id){
-        return $id;
+    protected function show($id){
+        return view("admin.task.show",["task"=>Task::find($id)->first()]);
     }
 
 }
