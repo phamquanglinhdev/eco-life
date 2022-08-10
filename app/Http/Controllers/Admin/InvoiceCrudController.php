@@ -21,67 +21,76 @@ class InvoiceCrudController extends CrudController
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
-     * 
+     *
      * @return void
      */
     public function setup()
     {
         CRUD::setModel(\App\Models\Invoice::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/invoice');
-        CRUD::setEntityNameStrings('invoice', 'invoices');
+        CRUD::setEntityNameStrings('Thanh toán', 'Bảng thanh toán');
     }
 
     /**
      * Define what happens when the List operation is loaded.
-     * 
+     *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
     protected function setupListOperation()
     {
-        CRUD::column('id');
-        CRUD::column('task_id');
-        CRUD::column('done');
-        CRUD::column('price');
-        CRUD::column('verification');
-        CRUD::column('created_at');
-        CRUD::column('updated_at');
+        CRUD::addColumn([
+            'name' => 'task_id',
+            'type' => 'select',
+            'entity'=>"Task",
+            'label'=>"Thanh toán cho công",
+            "model"=>"App\Models\Task",
+            'attribute'=>"FullName",
+        ]);
+        CRUD::column('done')->label("Hình thức")->type("select_from_array")->options(["Thanh toán một phần","Thanh toán xong"]);
+        CRUD::column('price')->label("Số tiền thanh toán")->type("number");
+        CRUD::column('created_at')->label("Thời gian thanh toán");
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
+         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
     }
 
     /**
      * Define what happens when the Create operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
     protected function setupCreateOperation()
     {
         CRUD::setValidation(InvoiceRequest::class);
+        CRUD::addField([
+            'name' => 'task_id',
+            'type' => 'select2',
+            'entity'=>"Task",
+            'label'=>"Thanh toán cho công",
+            "model"=>"App\Models\Task",
+            'attribute'=>"FullName",
+        ]);
+        CRUD::field('done')->label("Hình thức")->type("select_from_array")->options(["Thanh toán một phần","Thanh toán xong"]);
+        CRUD::field('price')->label("Số tiền thanh toán")->type("number");
+        CRUD::field('created_at')->label("Thời gian thanh toán");
+        CRUD::field('verification')->type("image")->crop(true)->label("Bằng chứng thanh toán");
 
-        CRUD::field('id');
-        CRUD::field('task_id');
-        CRUD::field('done');
-        CRUD::field('price');
-        CRUD::field('verification');
-        CRUD::field('created_at');
-        CRUD::field('updated_at');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
+         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
          */
     }
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */

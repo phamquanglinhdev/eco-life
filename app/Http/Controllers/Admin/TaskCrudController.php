@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\TaskRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\CrudPanel\Traits\Read;
 
 /**
  * Class TaskCrudController
@@ -29,6 +30,8 @@ class TaskCrudController extends CrudController
         CRUD::setModel(\App\Models\Task::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/task');
         CRUD::setEntityNameStrings('Công', 'Bảng công');
+        $this->crud->enableDetailsRow();
+        $this->crud->allowAccess(['details_row']);
     }
 
     /**
@@ -42,11 +45,11 @@ class TaskCrudController extends CrudController
         CRUD::column('id')->label("Mã công");
         CRUD::column('name')->label("Tên");
         CRUD::column('phone')->label("Số điện thoại");
-        CRUD::column('type')->label("Loại công")->type("select_from_array")->options(["Công khoán","Công ngày"]);
+        CRUD::column('type')->label("Loại công")->type("select_from_array")->options(["Công khoán", "Công ngày"]);
         CRUD::column('start')->label("Ngày bắt đầu");
 //        CRUD::column('end')->label("Ngày bắt đầu");
 //        CRUD::column('price');
-        CRUD::column('status')->label("Trạng thái")->type("select_from_array")->options(["Đang mở","Đã đóng"]);
+        CRUD::column('status')->label("Trạng thái")->type("select_from_array")->options(["Đang mở", "Đã đóng"]);
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -68,7 +71,7 @@ class TaskCrudController extends CrudController
         CRUD::field('name')->label("Tên công");
         CRUD::field('phone')->label("Số điện thoại");
         CRUD::field('address')->label("Địa chỉ");
-        CRUD::field('type')->label("Loại công")->type("select_from_array")->options(["Công khoán","Công ngày"]);
+        CRUD::field('type')->label("Loại công")->type("select_from_array")->options(["Công khoán", "Công ngày"]);
         CRUD::field('start')->label("Ngày bắt đầu")->type("date");
         CRUD::field('end')->label("Ngày kết thúc")->type("date");;
         CRUD::field('price')->label("Giá khoán")->type("number");;
@@ -91,4 +94,8 @@ class TaskCrudController extends CrudController
     {
         $this->setupCreateOperation();
     }
+    protected function showDetailsRow($id){
+        return $id;
+    }
+
 }

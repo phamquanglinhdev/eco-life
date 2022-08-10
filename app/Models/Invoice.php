@@ -28,7 +28,9 @@ class Invoice extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-
+    public function Task(){
+        return $this->belongsTo(Task::class,"task_id","id");
+    }
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
