@@ -40,14 +40,14 @@ class EquipmentCrudController extends CrudController
     protected function setupListOperation()
     {
 
-        CRUD::addColumn([
-            'name' => 'bill_id',
-            'type'=>'select',
-            'label' => 'Số hóa đơn',
-            'attribute'=>'code',
-            'model'=>'App\Models\Bill',
-            'entity'=>'Bill',
-        ]);
+//        CRUD::addColumn([
+//            'name' => 'bill_id',
+//            'type'=>'select',
+//            'label' => 'Số hóa đơn',
+//            'attribute'=>'code',
+//            'model'=>'App\Models\Bill',
+//            'entity'=>'Bill',
+//        ]);
         CRUD::addColumn(['name' => 'name', 'label' => 'Tên trang thiết bị']);
         CRUD::addColumn(['name' => 'price', 'label' => 'Đơn giá','type'=>'number']);
         CRUD::addColumn(['name' => 'quantity', 'label' => 'Số lượng']);
